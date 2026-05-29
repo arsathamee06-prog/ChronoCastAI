@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        ChronoCast AI | Time Series Forecasting Platform
+    </title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- WHITE.JS -->
+
+    <script src="https://unpkg.com/white.js@latest/white.min.js"></script>
+
+    <!-- CHART JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div id="app"
+         class="app-container">
+
+        <!-- NAVBAR -->
+
+        <nav class="navbar">
+
+            <div class="navbar-brand">
+
+                <i class="fas fa-brain"></i>
+
+                <h1>
+                    ChronoCast AI
+                </h1>
+
+            </div>
+
+            <ul class="navbar-menu">
+
+                <li>
+                    <a href="#"
+                       data-page="dashboard"
+                       class="nav-link active">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                       data-page="upload"
+                       class="nav-link">
+                        Upload Data
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                       data-page="models"
+                       class="nav-link">
+                        Models
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                       data-page="predict"
+                       class="nav-link">
+                        Predict
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                       data-page="explainability"
+                       class="nav-link">
+                        Explainability
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                       data-page="observability"
+                       class="nav-link">
+                        Observability
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <!-- MAIN CONTAINER -->
+
+        <div class="main-container">
+
+            <!-- DASHBOARD PAGE -->
+
+            <div id="dashboard-page"
+                 class="page active">
+
+                <div class="page-header">
+
+                    <h2>
+                        Dashboard Analytics
+                    </h2>
+
+                    <p class="subtitle">
+
+                        AI Forecasting Insights
+                        and Real-Time Monitoring
+
+                    </p>
+
+                </div>
+
+                <!-- METRICS -->
+
+                <div class="metrics-container">
+
+                    <div class="metric-card">
+
+                        <div class="metric-icon gradient1">
+
+                            <i class="fas fa-chart-line"></i>
+
+                        </div>
+
+                        <div class="metric-content">
+
+                            <p class="metric-label">
+
+                                Best Model Accuracy
+
+                            </p>
+
+                            <h3 id="best-accuracy">
+
+                                97%
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="metric-card">
+
+                        <div class="metric-icon gradient2">
+
+                            <i class="fas fa-database"></i>
+
+                        </div>
+
+                        <div class="metric-content">
+
+                            <p class="metric-label">
+
+                                Total Predictions
+
+                            </p>
+
+                            <h3 id="total-predictions">
+
+                                12,540
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="metric-card">
+
+                        <div class="metric-icon gradient3">
+
+                            <i class="fas fa-cogs"></i>
+
+                        </div>
+
+                        <div class="metric-content">
+
+                            <p class="metric-label">
+
+                                Active Models
+
+                            </p>
+
+                            <h3 id="active-models">
+
+                                6
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="metric-card">
+
+                        <div class="metric-icon gradient4">
+
+                            <i class="fas fa-heartbeat"></i>
+
+                        </div>
+
+                        <div class="metric-content">
+
+                            <p class="metric-label">
+
+                                System Health
+
+                            </p>
+
+                            <h3 id="system-health">
+
+                                Excellent
+
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CHARTS -->
+
+                <div class="charts-container">
+
+                    <div class="chart-card">
+
+                        <h3>
+                            Time Series Model Comparison
+                        </h3>
+
+                        <canvas id="model-comparison-chart">
+                        </canvas>
+
+                    </div>
+
+                    <div class="chart-card">
+
+                        <h3>
+                            Forecast vs Actual
+                        </h3>
+
+                        <canvas id="forecast-chart">
+                        </canvas>
+
+                    </div>
+
+                    <div class="chart-card">
+
+                        <h3>
+                            Seasonal Pattern Analysis
+                        </h3>
+
+                        <canvas id="seasonal-chart">
+                        </canvas>
+
+                    </div>
+
+                    <div class="chart-card">
+
+                        <h3>
+                            Trend Analysis
+                        </h3>
+
+                        <canvas id="trend-chart">
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- UPLOAD PAGE -->
+
+            <div id="upload-page"
+                 class="page">
+
+                <div class="page-header">
+
+                    <h2>
+                        Upload CSV Dataset
+                    </h2>
+
+                    <p class="subtitle">
+
+                        Upload your dataset
+                        for AI forecasting
+
+                    </p>
+
+                </div>
+
+                <div class="form-container">
+
+                    <form id="upload-form"
+                          enctype="multipart/form-data">
+
+                        <div class="upload-area">
+
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+
+                            <h3>
+                                Drag & Drop CSV File
+                            </h3>
+
+                            <p>
+                                OR
+                            </p>
+
+                            <input type="file"
+                                   id="file-input"
+                                   accept=".csv">
+
+                            <br><br>
+
+                            <button type="button"
+                                    class="btn btn-primary">
+
+                                Select File
+
+                            </button>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Date Column
+
+                            </label>
+
+                            <input type="text"
+                                   placeholder="date">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Target Column
+
+                            </label>
+
+                            <input type="text"
+                                   placeholder="sales">
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary btn-large">
+
+                            Upload & Process
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- MODELS PAGE -->
+
+            <div id="models-page"
+                 class="page">
+
+                <div class="page-header">
+
+                    <h2>
+                        Forecasting Models
+                    </h2>
+
+                    <p class="subtitle">
+
+                        Compare all Time Series Models
+
+                    </p>
+
+                </div>
+
+                <div class="models-grid">
+
+                    <div class="model-card">
+
+                        <h3>
+                            ARIMA
+                        </h3>
+
+                        <p>
+                            Accuracy: 91%
+                        </p>
+
+                    </div>
+
+                    <div class="model-card">
+
+                        <h3>
+                            Prophet
+                        </h3>
+
+                        <p>
+                            Accuracy: 94%
+                        </p>
+
+                    </div>
+
+                    <div class="model-card">
+
+                        <h3>
+                            LSTM
+                        </h3>
+
+                        <p>
+                            Accuracy: 97%
+                        </p>
+
+                    </div>
+
+                    <div class="model-card">
+
+                        <h3>
+                            XGBoost
+                        </h3>
+
+                        <p>
+                            Accuracy: 95%
+                        </p>
+
+                    </div>
+
+                    <div class="model-card">
+
+                        <h3>
+                            Random Forest
+                        </h3>
+
+                        <p>
+                            Accuracy: 93%
+                        </p>
+
+                    </div>
+
+                    <div class="model-card">
+
+                        <h3>
+                            Linear Regression
+                        </h3>
+
+                        <p>
+                            Accuracy: 88%
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PREDICTION PAGE -->
+
+            <div id="predict-page"
+                 class="page">
+
+                <div class="page-header">
+
+                    <h2>
+                        Future Forecast Prediction
+                    </h2>
+
+                    <p class="subtitle">
+
+                        Predict future trends using AI
+
+                    </p>
+
+                </div>
+
+                <div class="form-container">
+
+                    <form id="prediction-form">
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Forecast Months
+
+                            </label>
+
+                            <input type="number"
+                                   id="forecast-horizon"
+                                   value="3"
+                                   min="1"
+                                   max="12">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Confidence Level
+
+                            </label>
+
+                            <select>
+
+                                <option>
+                                    90%
+                                </option>
+
+                                <option selected>
+                                    95%
+                                </option>
+
+                                <option>
+                                    99%
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary btn-large">
+
+                            Generate Forecast
+
+                        </button>
+
+                    </form>
+
+                    <div class="prediction-result">
+
+                        <canvas id="prediction-chart">
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- EXPLAINABILITY PAGE -->
+
+            <div id="explainability-page"
+                 class="page">
+
+                <div class="page-header">
+
+                    <h2>
+                        Explainability & Insights
+                    </h2>
+
+                    <p class="subtitle">
+
+                        Understand AI Predictions
+
+                    </p>
+
+                </div>
+
+                <div class="explainability-container">
+
+                    <div class="explanation-card">
+
+                        <h3>
+                            Trend Analysis
+                        </h3>
+
+                        <p>
+
+                            Forecast shows upward
+                            growth due to increasing
+                            seasonal demand.
+
+                        </p>
+
+                    </div>
+
+                    <div class="explanation-card">
+
+                        <h3>
+                            Volatility Analysis
+                        </h3>
+
+                        <p>
+
+                            High volatility detected
+                            during weekends.
+
+                        </p>
+
+                    </div>
+
+                    <div class="explanation-card">
+
+                        <h3>
+                            Anomaly Detection
+                        </h3>
+
+                        <p>
+
+                            Sudden spikes identified
+                            in historical data.
+
+                        </p>
+
+                    </div>
+
+                    <div class="explanation-card">
+
+                        <h3>
+                            Confidence Analysis
+                        </h3>
+
+                        <p>
+
+                            LSTM model achieved
+                            highest confidence interval.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- OBSERVABILITY PAGE -->
+
+            <div id="observability-page"
+                 class="page">
+
+                <div class="page-header">
+
+                    <h2>
+                        Observability & Monitoring
+                    </h2>
+
+                    <p class="subtitle">
+
+                        Real-Time System Monitoring
+
+                    </p>
+
+                </div>
+
+                <div class="observability-grid">
+
+                    <div class="monitoring-card">
+
+                        <h3>
+                            API Status
+                        </h3>
+
+                        <p>
+                            Online ✅
+                        </p>
+
+                    </div>
+
+                    <div class="monitoring-card">
+
+                        <h3>
+                            CPU Usage
+                        </h3>
+
+                        <p>
+                            38%
+                        </p>
+
+                    </div>
+
+                    <div class="monitoring-card">
+
+                        <h3>
+                            Memory Usage
+                        </h3>
+
+                        <p>
+                            2.4 GB
+                        </p>
+
+                    </div>
+
+                    <div class="monitoring-card">
+
+                        <h3>
+                            Model Health
+                        </h3>
+
+                        <p>
+                            Stable ✅
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="live-charts">
+
+                    <div class="live-chart-container">
+
+                        <h3>
+                            API Response Time
+                        </h3>
+
+                        <canvas id="api-chart">
+                        </canvas>
+
+                    </div>
+
+                    <div class="live-chart-container">
+
+                        <h3>
+                            Resource Monitoring
+                        </h3>
+
+                        <canvas id="resource-chart">
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LOADING -->
+
+    <div id="loading-spinner"
+         class="loading-spinner"
+         style="display:none;">
+
+        <div class="spinner"></div>
+
+        <p>
+            AI Forecasting in Progress...
+        </p>
+
+    </div>
+
+    <!-- NOTIFICATION -->
+
+    <div id="notification"
+         class="notification">
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/explainability.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/observability.js') }}"></script>
+
+</body>
+
+</html>
